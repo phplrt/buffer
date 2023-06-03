@@ -1,12 +1,5 @@
 <?php
 
-/**
- * This file is part of phplrt package.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 declare(strict_types=1);
 
 namespace Phplrt\Buffer;
@@ -52,25 +45,16 @@ abstract class Buffer implements BufferInterface
         return $token->getName();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function key(): int
     {
         return $this->current;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function rewind(): void
     {
         $this->seek($this->initial);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function seek($offset): void
     {
         \assert($offset >= 0);

@@ -1,12 +1,5 @@
 <?php
 
-/**
- * This file is part of phplrt package.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 declare(strict_types=1);
 
 namespace Phplrt\Buffer;
@@ -18,7 +11,7 @@ class ArrayBuffer extends Buffer
     /**
      * @var array<int<0, max>, TokenInterface>
      */
-    private array $buffer;
+    private array $buffer = [];
 
     /**
      * @var int<0, max>
@@ -33,7 +26,7 @@ class ArrayBuffer extends Buffer
         $this->buffer = $this->iterableToArray($stream);
         $this->size = \count($this->buffer);
 
-        if (\count($this->buffer)) {
+        if ($this->buffer !== []) {
             $this->initial = $this->current = \array_key_first($this->buffer);
         }
     }
@@ -51,9 +44,6 @@ class ArrayBuffer extends Buffer
         return $tokens;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function seek($offset): void
     {
         if ($offset < $this->initial) {
@@ -71,17 +61,11 @@ class ArrayBuffer extends Buffer
         parent::seek($offset);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function current(): TokenInterface
     {
         return $this->currentFrom($this->buffer);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function next(): void
     {
         if ($this->current < $this->size) {
@@ -89,9 +73,6 @@ class ArrayBuffer extends Buffer
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function valid(): bool
     {
         return $this->current < $this->size;

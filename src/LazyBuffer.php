@@ -1,12 +1,5 @@
 <?php
 
-/**
- * This file is part of phplrt package.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 declare(strict_types=1);
 
 namespace Phplrt\Buffer;
@@ -60,9 +53,6 @@ class LazyBuffer extends Buffer
         return \count($this->buffer);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function seek($offset): void
     {
         if ($offset < $this->initial) {
@@ -89,25 +79,16 @@ class LazyBuffer extends Buffer
         $this->current = $offset;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function current(): TokenInterface
     {
         return $this->currentFrom($this->buffer);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function valid(): bool
     {
         return isset($this->buffer[$this->current]);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function next(): void
     {
         $this->nextValid();
@@ -118,7 +99,7 @@ class LazyBuffer extends Buffer
      */
     protected function nextValid(): bool
     {
-        $this->current++;
+        ++$this->current;
 
         if (! isset($this->buffer[$this->current])) {
             $current = $this->stream->current();
