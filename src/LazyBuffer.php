@@ -67,7 +67,7 @@ class LazyBuffer extends Buffer
         // buffer.
         //
         while ($offset > ($last = \array_key_last($this->buffer))) {
-            if (! $this->valid()) {
+            if (!$this->valid()) {
                 throw new \OutOfRangeException(
                     \sprintf(self::ERROR_STREAM_POSITION_EXCEED, $offset, (string)$last)
                 );
@@ -94,14 +94,11 @@ class LazyBuffer extends Buffer
         $this->nextValid();
     }
 
-    /**
-     * @return bool
-     */
     protected function nextValid(): bool
     {
         ++$this->current;
 
-        if (! isset($this->buffer[$this->current])) {
+        if (!isset($this->buffer[$this->current])) {
             $current = $this->stream->current();
 
             if ($current) {
@@ -121,7 +118,7 @@ class LazyBuffer extends Buffer
      */
     public function key(): int
     {
-        if (! $this->valid()) {
+        if (!$this->valid()) {
             return \array_key_last($this->buffer) ?? 0;
         }
 
