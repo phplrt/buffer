@@ -21,15 +21,22 @@ class ExtrusiveBuffer extends LazyBuffer
     public const BUFFER_DEFAULT_SIZE = 100;
 
     /**
+     * @var int<1, max>
+     */
+    private int $size;
+
+    /**
      * @param iterable<TokenInterface> $stream
      * @param int<1, max> $size
      */
     public function __construct(
         iterable $stream,
-        private int $size = self::BUFFER_DEFAULT_SIZE
+        int $size = self::BUFFER_DEFAULT_SIZE
     ) {
+        $this->size = $size;
+
         /** @psalm-suppress RedundantCondition */
-        assert($this->size > 0, 'Buffer size must be greater than 0, but ' . $this->size . ' passed');
+        assert($this->size > 0, 'Buffer size must be greater than 0, but ' . $size . ' passed');
 
         parent::__construct($stream);
     }
