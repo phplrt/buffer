@@ -17,21 +17,21 @@ abstract class TestCase extends BaseTestCase
     {
         return [
             'Generator' => [
-                static::create(self::createTokens(static::$bufferSize)),
+                static::create(self::createTokens((static::$bufferSize))),
             ],
             'array' => [
                 static::create([
-                    ...self::createTokens(static::$bufferSize),
+                    ...self::createTokens((static::$bufferSize)),
                 ]),
             ],
             'IteratorIterator' => [
                 static::create(new \IteratorIterator(
-                    self::createTokens(static::$bufferSize),
+                    self::createTokens((static::$bufferSize)),
                 )),
             ],
             'ArrayIterator' => [
                 static::create(new \ArrayIterator([
-                    ...self::createTokens(static::$bufferSize),
+                    ...self::createTokens((static::$bufferSize)),
                 ])),
             ],
         ];
@@ -95,8 +95,7 @@ abstract class TestCase extends BaseTestCase
         $needle = $buffer->current();
 
         // Iterate
-        foreach ($buffer as $token) {
-        }
+        foreach ($buffer as $token);
 
         $this->assertNotSame($needle, $buffer->current());
         $buffer->rewind();
@@ -114,8 +113,7 @@ abstract class TestCase extends BaseTestCase
 
         $buffer->rewind();
 
-        foreach ($buffer as $item) {
-        }
+        foreach ($buffer as $item);
 
         $this->assertSame($buffer->current(), $needle);
     }
