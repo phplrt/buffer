@@ -54,7 +54,7 @@ class LazyBuffer extends Buffer
         return \count($this->buffer);
     }
 
-    public function seek(mixed $offset): void
+    public function seek($offset): void
     {
         if ($offset < $this->initial) {
             throw new \OutOfRangeException(

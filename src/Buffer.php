@@ -51,7 +51,7 @@ abstract class Buffer implements BufferInterface
         $this->seek($this->initial);
     }
 
-    public function seek(mixed $offset): void
+    public function seek($offset): void
     {
         \assert($offset >= 0);
 
