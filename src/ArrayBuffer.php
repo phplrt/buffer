@@ -16,7 +16,7 @@ class ArrayBuffer extends Buffer
     /**
      * @var int<0, max>
      */
-    private int $size;
+    private readonly int $size;
 
     /**
      * @param iterable<int<0, max>, TokenInterface> $stream
@@ -45,7 +45,7 @@ class ArrayBuffer extends Buffer
         return $tokens;
     }
 
-    public function seek($offset): void
+    public function seek(int $offset): void
     {
         if ($offset < $this->initial) {
             throw new \OutOfRangeException(

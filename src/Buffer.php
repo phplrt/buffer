@@ -51,7 +51,7 @@ abstract class Buffer implements BufferInterface
         $this->seek($this->initial);
     }
 
-    public function seek($offset): void
+    public function seek(int $offset): void
     {
         \assert($offset >= 0);
 
@@ -60,8 +60,6 @@ abstract class Buffer implements BufferInterface
 
     /**
      * @param array<TokenInterface> $data
-     *
-     * @psalm-suppress PossiblyNullArrayOffset
      */
     protected function currentFrom(array $data): TokenInterface
     {

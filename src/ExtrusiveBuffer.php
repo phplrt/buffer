@@ -21,22 +21,16 @@ class ExtrusiveBuffer extends LazyBuffer
     public const BUFFER_DEFAULT_SIZE = 100;
 
     /**
-     * @var int<1, max>
-     */
-    private int $size;
-
-    /**
      * @param iterable<TokenInterface> $stream
-     * @param int<1, max> $size
      */
     public function __construct(
         iterable $stream,
-        int $size = self::BUFFER_DEFAULT_SIZE
+        /**
+         * @var int<1, max>
+         */
+        private readonly int $size = self::BUFFER_DEFAULT_SIZE,
     ) {
-        $this->size = $size;
-
-        /** @psalm-suppress RedundantCondition */
-        assert($this->size > 0, 'Buffer size must be greater than 0, but ' . $size . ' passed');
+        assert($this->size > 0, 'Buffer size must be greater than 0, but ' . $this->size . ' passed');
 
         parent::__construct($stream);
     }
@@ -49,7 +43,7 @@ class ExtrusiveBuffer extends LazyBuffer
         return $this->size;
     }
 
-    public function seek($offset): void
+    public function seek(int $offset): void
     {
         if ($offset < \array_key_first($this->buffer)) {
             $message = \sprintf(self::ERROR_BUFFER_MEMORY_ALREADY_FREED, $offset, $this->size);
@@ -63,7 +57,6 @@ class ExtrusiveBuffer extends LazyBuffer
     public function next(): void
     {
         if ($this->nextValid() && $this->getBufferCurrentSize() > $this->size) {
-            /** @psalm-suppress PossiblyNullArrayOffset */
             unset($this->buffer[\array_key_first($this->buffer)]);
         }
     }

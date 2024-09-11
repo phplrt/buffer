@@ -10,17 +10,14 @@ use Phplrt\Contracts\Lexer\TokenInterface;
  */
 class MutableBuffer implements BufferInterface
 {
-    private BufferInterface $parent;
-
     /**
      * @var array<int<0, max>, TokenInterface>
      */
     private array $overrides = [];
 
-    public function __construct(BufferInterface $parent)
-    {
-        $this->parent = $parent;
-    }
+    public function __construct(
+        private readonly BufferInterface $parent,
+    ) {}
 
     /**
      * @param int<0, max> $offset
@@ -54,7 +51,7 @@ class MutableBuffer implements BufferInterface
         }
     }
 
-    public function seek($offset): void
+    public function seek(int $offset): void
     {
         $this->parent->seek($offset);
     }
